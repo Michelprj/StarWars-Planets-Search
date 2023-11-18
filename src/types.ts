@@ -17,4 +17,12 @@ export type PlanetsType = {
 export type TableContextType = {
   fetchPlanets: PlanetsType[],
   getValues: (results: PlanetsType[]) => void,
+  performsFilters: () => PlanetsType[],
+};
+
+export type FilterContextType = {
+  values: {
+    filter: string,
+  },
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 };

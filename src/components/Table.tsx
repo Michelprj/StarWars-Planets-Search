@@ -1,10 +1,12 @@
 import { useContext, useEffect } from 'react';
 import fetchApi from '../helpers/fetchApi';
-import TableContext from '../context/TableContext';
+import TableContext from '../context/Table/TableContext';
 import { PlanetsType, TableContextType } from '../types';
+import FilterContext from '../context/Filter/FilterContext';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
+  const { values } = useContext(FilterContext);
 
   useEffect(() => {
     const getApi = async () => {
@@ -19,7 +21,11 @@ function Table() {
     getApi();
   }, []);
 
-  console.log(fetchPlanets);
+  const performsFilters = () => fetchPlanets.filter((allPlanets) => (
+    allPlanets.name.toLowerCase().includes(values.filter.toLowerCase())
+  ));
+
+  console.log(performsFilters());
 
   return (
     <table>
@@ -42,7 +48,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          fetchPlanets.map((planet: PlanetsType) => (
+          performsFilters().map((planet: PlanetsType) => (
             <tr key={ planet.url }>
               <td>{planet.name}</td>
               <td>{planet.rotation_period}</td>
@@ -62,8 +68,6 @@ function Table() {
         }
       </tbody>
     </table>
-
   );
 }
-
 export default Table;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TableContext from './TableContext';
-import { PlanetsType } from '../types';
+import { PlanetsType } from '../../types';
 
 type TableProviderType = {
   children: React.ReactNode,
