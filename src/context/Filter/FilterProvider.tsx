@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FilterContext from './FilterContext';
+import TableContext from '../Table/TableContext';
 
 type FilterProviderType = {
   children: React.ReactNode,
 };
 
-function FilterProvider({ children }: FilterProviderType) {
-  const [values, setValues] = useState({
-    filter: '',
-  });
+const INITIAL_STATE = {
+  filter: '',
+  columnFilter: 'population',
+  comparisonFilter: 'maior que',
+  valueFilter: '0',
+};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+function FilterProvider({ children }: FilterProviderType) {
+  const [values, setValues] = useState(INITIAL_STATE);
+  const [click, setClick] = useState(false);
+  const { fetchPlanets } = useContext(TableContext);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>) => {
     setValues((prevState) => (
       {
         ...prevState,
@@ -19,9 +28,20 @@ function FilterProvider({ children }: FilterProviderType) {
     ));
   };
 
+  const handleClick = () => {
+    setClick(true);
+  };
+
+  const clickFalse = () => {
+    setClick(false);
+  };
+
   const value = {
     values,
     handleChange,
+    handleClick,
+    click,
+    clickFalse,
   };
 
   return (

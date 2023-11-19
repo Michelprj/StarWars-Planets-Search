@@ -6,7 +6,9 @@ import FilterContext from '../context/Filter/FilterContext';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
-  const { values } = useContext(FilterContext);
+  const { values, click, clickFalse } = useContext(FilterContext);
+
+  console.log(click);
 
   useEffect(() => {
     const getApi = async () => {
@@ -21,11 +23,36 @@ function Table() {
     getApi();
   }, []);
 
-  const performsFilters = () => fetchPlanets.filter((allPlanets) => (
-    allPlanets.name.toLowerCase().includes(values.filter.toLowerCase())
-  ));
+  useEffect(() => {
+    clickFalse();
+  }, [values.valueFilter]);
 
-  console.log(performsFilters());
+  const column = values.columnFilter;
+
+  const performsFilters = () => {
+    if (values.filter.length > 0) {
+      return fetchPlanets.filter((allPlanets) => (
+        allPlanets.name.toLowerCase().includes(values.filter.toLowerCase())
+      ));
+    }
+
+    if (values.comparisonFilter === 'maior que' && values.valueFilter !== '' && click) {
+      return fetchPlanets
+        .filter((planet: any) => Number(planet[column]) > Number(values.valueFilter));
+    }
+
+    if (values.comparisonFilter === 'menor que' && values.valueFilter !== '' && click) {
+      return fetchPlanets
+        .filter((planet: any) => Number(planet[column]) < Number(values.valueFilter));
+    }
+
+    if (values.comparisonFilter === 'igual a' && values.valueFilter !== '' && click) {
+      return fetchPlanets
+        .filter((planet: any) => Number(planet[column]) === Number(values.valueFilter));
+    }
+
+    return fetchPlanets;
+  };
 
   return (
     <table>
