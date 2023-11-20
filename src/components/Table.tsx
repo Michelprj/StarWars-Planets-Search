@@ -1,14 +1,12 @@
 import { useContext, useEffect } from 'react';
 import fetchApi from '../helpers/fetchApi';
 import TableContext from '../context/Table/TableContext';
-import { PlanetsType, TableContextType } from '../types';
+import { FilteredValuesType, PlanetsType, TableContextType } from '../types';
 import FilterContext from '../context/Filter/FilterContext';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
-  const { values, click, clickFalse } = useContext(FilterContext);
-
-  console.log(click);
+  const { values, filteredValues } = useContext(FilterContext);
 
   useEffect(() => {
     const getApi = async () => {
@@ -23,35 +21,44 @@ function Table() {
     getApi();
   }, []);
 
-  useEffect(() => {
-    clickFalse();
-  }, [values.valueFilter]);
+  const filterNames = (listPlanets: PlanetsType[]) => {
+    return listPlanets.filter((allPlanets: PlanetsType) => (
+      allPlanets.name.toLowerCase().includes(values.filter.toLowerCase())
+    ));
+  };
 
-  const column = values.columnFilter;
+  const filterNumbers = (
+    filtersPlanets: FilteredValuesType[],
+    listPlanets: PlanetsType[],
+  ) => {
+    let listFiltered = listPlanets;
+
+    filtersPlanets.forEach(({ valueFilter, comparisonFilter, columnFilter }) => {
+      if (comparisonFilter === 'maior que') {
+        listFiltered = listFiltered
+          .filter((planet: any) => Number(planet[columnFilter])
+          > Number(valueFilter));
+      }
+
+      if (comparisonFilter === 'menor que') {
+        listFiltered = listFiltered
+          .filter((planet: any) => Number(planet[columnFilter])
+          < Number(valueFilter));
+      }
+
+      if (comparisonFilter === 'igual a') {
+        listFiltered = listFiltered
+          .filter((planet: any) => Number(planet[columnFilter])
+          === Number(valueFilter));
+      }
+    });
+
+    return listFiltered;
+  };
 
   const performsFilters = () => {
-    if (values.filter.length > 0) {
-      return fetchPlanets.filter((allPlanets) => (
-        allPlanets.name.toLowerCase().includes(values.filter.toLowerCase())
-      ));
-    }
-
-    if (values.comparisonFilter === 'maior que' && values.valueFilter !== '' && click) {
-      return fetchPlanets
-        .filter((planet: any) => Number(planet[column]) > Number(values.valueFilter));
-    }
-
-    if (values.comparisonFilter === 'menor que' && values.valueFilter !== '' && click) {
-      return fetchPlanets
-        .filter((planet: any) => Number(planet[column]) < Number(values.valueFilter));
-    }
-
-    if (values.comparisonFilter === 'igual a' && values.valueFilter !== '' && click) {
-      return fetchPlanets
-        .filter((planet: any) => Number(planet[column]) === Number(values.valueFilter));
-    }
-
-    return fetchPlanets;
+    const namesFiltered = filterNames(fetchPlanets);
+    return filterNumbers(filteredValues, namesFiltered);
   };
 
   return (

@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import FilterContext from '../context/Filter/FilterContext';
-import TableContext from '../context/Table/TableContext';
 
 function Filter() {
   const { values, handleChange, handleClick } = useContext(FilterContext);

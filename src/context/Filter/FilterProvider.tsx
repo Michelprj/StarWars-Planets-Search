@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import FilterContext from './FilterContext';
-import TableContext from '../Table/TableContext';
+import { FilteredValuesType } from '../../types';
 
 type FilterProviderType = {
   children: React.ReactNode,
@@ -15,8 +15,7 @@ const INITIAL_STATE = {
 
 function FilterProvider({ children }: FilterProviderType) {
   const [values, setValues] = useState(INITIAL_STATE);
-  const [click, setClick] = useState(false);
-  const { fetchPlanets } = useContext(TableContext);
+  const [filteredValues, setFilteredValues] = useState<FilteredValuesType[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>) => {
@@ -29,19 +28,14 @@ function FilterProvider({ children }: FilterProviderType) {
   };
 
   const handleClick = () => {
-    setClick(true);
-  };
-
-  const clickFalse = () => {
-    setClick(false);
+    setFilteredValues([...filteredValues, values]);
   };
 
   const value = {
     values,
     handleChange,
     handleClick,
-    click,
-    clickFalse,
+    filteredValues,
   };
 
   return (
