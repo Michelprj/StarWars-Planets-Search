@@ -13,6 +13,8 @@ function Table() {
       const { results } = await fetchApi();
       const data = results.map((result: any) => {
         const { residents, ...resulted } = result;
+        console.log(resulted);
+
         return resulted;
       });
 

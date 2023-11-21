@@ -30,13 +30,10 @@ export type FilterContextType = {
     comparisonFilter: string,
     valueFilter: string,
   },
-  click: boolean,
   handleClick: () => void,
-  clickFalse: () => void,
   handleChange: (event: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>) => void,
-  filteredValues: [],
-  addFilter: (formData: PlanetsType[]) => void,
+  filteredValues: FilteredValuesType[],
 };
 
 export type FilteredValuesType = {
