@@ -37,6 +37,7 @@ function FilterProvider({ children }: FilterProviderType) {
     const removeColumns = columns.filter((column) => column !== values.columnFilter);
     setFilteredValues([...filteredValues, values]);
     setColumns(removeColumns);
+    setValues(INITIAL_STATE);
   };
 
   const value = {
