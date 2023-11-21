@@ -34,6 +34,8 @@ export type FilterContextType = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>) => void,
   filteredValues: FilteredValuesType[],
+  columns: string[],
+  comparisons: string[],
 };
 
 export type FilteredValuesType = {

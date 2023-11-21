@@ -13,9 +13,15 @@ const INITIAL_STATE = {
   valueFilter: '0',
 };
 
+const valuesColumns = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
+const comparisons = ['maior que', 'menor que', 'igual a'];
+
 function FilterProvider({ children }: FilterProviderType) {
   const [values, setValues] = useState(INITIAL_STATE);
   const [filteredValues, setFilteredValues] = useState<FilteredValuesType[]>([]);
+  const [columns, setColumns] = useState(valuesColumns);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>) => {
@@ -28,7 +34,9 @@ function FilterProvider({ children }: FilterProviderType) {
   };
 
   const handleClick = () => {
+    const removeColumns = columns.filter((column) => column !== values.columnFilter);
     setFilteredValues([...filteredValues, values]);
+    setColumns(removeColumns);
   };
 
   const value = {
@@ -36,6 +44,8 @@ function FilterProvider({ children }: FilterProviderType) {
     handleChange,
     handleClick,
     filteredValues,
+    columns,
+    comparisons,
   };
 
   return (

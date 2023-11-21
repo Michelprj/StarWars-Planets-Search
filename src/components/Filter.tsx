@@ -2,7 +2,11 @@ import { useContext } from 'react';
 import FilterContext from '../context/Filter/FilterContext';
 
 function Filter() {
-  const { values, handleChange, handleClick } = useContext(FilterContext);
+  const { values,
+    handleChange,
+    handleClick,
+    columns,
+    comparisons } = useContext(FilterContext);
 
   return (
     <>
@@ -22,11 +26,11 @@ function Filter() {
         onChange={ handleChange }
         value={ values.columnFilter }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {
+          columns.map((column) => (
+            <option key={ column } value={ column }>{column}</option>
+          ))
+        }
       </select>
 
       <select
@@ -35,9 +39,11 @@ function Filter() {
         onChange={ handleChange }
         value={ values.comparisonFilter }
       >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
+        {
+          comparisons.map((comparison) => (
+            <option key={ comparison } value={ comparison }>{comparison}</option>
+          ))
+        }
       </select>
 
       <input
