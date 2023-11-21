@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import FilterContext from '../context/Filter/FilterContext';
+import FiltersPerformed from './FiltersPerformed';
 
 function Filter() {
   const { values,
     handleChange,
     handleClick,
     columns,
-    comparisons } = useContext(FilterContext);
+    comparisons,
+    filteredValues } = useContext(FilterContext);
 
   return (
     <>
@@ -61,6 +63,11 @@ function Filter() {
         Filtrar
 
       </button>
+
+      {
+        filteredValues.length > 0
+        && <FiltersPerformed />
+      }
     </>
   );
 }

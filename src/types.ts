@@ -36,6 +36,8 @@ export type FilterContextType = {
   filteredValues: FilteredValuesType[],
   columns: string[],
   comparisons: string[],
+  setFilteredValues: React.Dispatch<React.SetStateAction<FilteredValuesType[]>>,
+  setColumns: React.Dispatch<React.SetStateAction<string[]>>,
 };
 
 export type FilteredValuesType = {

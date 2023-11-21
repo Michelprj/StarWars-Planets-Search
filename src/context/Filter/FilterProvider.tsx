@@ -37,7 +37,10 @@ function FilterProvider({ children }: FilterProviderType) {
     const removeColumns = columns.filter((column) => column !== values.columnFilter);
     setFilteredValues([...filteredValues, values]);
     setColumns(removeColumns);
-    setValues(INITIAL_STATE);
+    setValues({
+      ...values,
+      columnFilter: columns[1],
+    });
   };
 
   const value = {
@@ -47,6 +50,8 @@ function FilterProvider({ children }: FilterProviderType) {
     filteredValues,
     columns,
     comparisons,
+    setFilteredValues,
+    setColumns,
   };
 
   return (
