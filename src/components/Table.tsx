@@ -47,13 +47,11 @@ function Table() {
           .filter((planet: any) => Number(planet[columnFilter])
           > Number(valueFilter));
       }
-
       if (comparisonFilter === 'menor que') {
         listFiltered = listFiltered
           .filter((planet: any) => Number(planet[columnFilter])
           < Number(valueFilter));
       }
-
       if (comparisonFilter === 'igual a') {
         listFiltered = listFiltered
           .filter((planet: any) => Number(planet[columnFilter])
@@ -64,31 +62,40 @@ function Table() {
     return listFiltered;
   };
 
+  const orderAsc = (planets: PlanetsType[]) => {
+    const { order: { column } } = updateColumn;
+    return planets
+      .sort((a, b) => {
+        if (a[column] === 'unknown') {
+          return 1;
+        } if (b[column] === 'unknown') {
+          return -1;
+        }
+        return a[column] - b[column];
+      });
+  };
+
+  const orderDesc = (planets: PlanetsType[]) => {
+    const { order: { column } } = updateColumn;
+    return planets
+      .sort((a, b) => {
+        if (a[column] === 'unknown') {
+          return 1;
+        } if (b[column] === 'unknown') {
+          return -1;
+        }
+        return b[column] - a[column];
+      });
+  };
+
   const orderFilter = (planets: PlanetsType[]) => {
-    const { order: { column, sort } } = updateColumn;
+    const { order: { sort } } = updateColumn;
     if (clickOrder && sort === 'ASC') {
-      return planets
-        .sort((a, b) => {
-          if (a[column] === 'unknown') {
-            return 1;
-          } if (b[column] === 'unknown') {
-            return -1;
-          }
-          return a[column] - b[column];
-        });
+      orderAsc(planets);
     }
     if (clickOrder && sort === 'DESC') {
-      return planets
-        .sort((a, b) => {
-          if (a[column] === 'unknown') {
-            return 1;
-          } if (b[column] === 'unknown') {
-            return -1;
-          }
-          return b[column] - a[column];
-        });
+      orderDesc(planets);
     }
-
     return planets;
   };
 
