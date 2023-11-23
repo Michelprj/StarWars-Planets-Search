@@ -3,12 +3,19 @@ import FilterContext from '../context/Filter/FilterContext';
 import FiltersPerformed from './FiltersPerformed';
 
 function Filter() {
-  const { values,
-    handleChange,
-    handleClick,
-    columns,
-    comparisons,
-    filteredValues } = useContext(FilterContext);
+  const { values: { columnFilter,
+    comparisonFilter,
+    filter,
+    valueFilter },
+  handleChange,
+  handleClick,
+  columns,
+  comparisons,
+  filteredValues,
+  columnsSort,
+  handleChangeSort,
+  handleClickOrder,
+  updateColumn: { order: { column } } } = useContext(FilterContext);
 
   return (
     <>
@@ -16,7 +23,7 @@ function Filter() {
         <input
           type="text"
           data-testid="name-filter"
-          value={ values.filter }
+          value={ filter }
           onChange={ handleChange }
           name="filter"
         />
@@ -26,11 +33,11 @@ function Filter() {
         name="columnFilter"
         data-testid="column-filter"
         onChange={ handleChange }
-        value={ values.columnFilter }
+        value={ columnFilter }
       >
         {
-          columns.map((column) => (
-            <option key={ column } value={ column }>{column}</option>
+          columns.map((columnValue) => (
+            <option key={ columnValue } value={ columnValue }>{columnValue}</option>
           ))
         }
       </select>
@@ -39,7 +46,7 @@ function Filter() {
         name="comparisonFilter"
         data-testid="comparison-filter"
         onChange={ handleChange }
-        value={ values.comparisonFilter }
+        value={ comparisonFilter }
       >
         {
           comparisons.map((comparison) => (
@@ -53,7 +60,7 @@ function Filter() {
         name="valueFilter"
         data-testid="value-filter"
         onChange={ handleChange }
-        value={ values.valueFilter }
+        value={ valueFilter }
       />
 
       <button
@@ -64,10 +71,56 @@ function Filter() {
 
       </button>
 
+      <select
+        name="column"
+        data-testid="column-sort"
+        onChange={ handleChangeSort }
+        value={ column }
+      >
+        {
+          columnsSort.map((columnSort) => (
+            <option key={ columnSort } value={ columnSort }>{columnSort}</option>
+          ))
+        }
+      </select>
+
+      <label>
+        <input
+          type="radio"
+          name="sort"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          onChange={ handleChangeSort }
+        />
+        {' '}
+        Ascendente
+      </label>
+
+      <label>
+        <input
+          data-testid="column-sort-input-desc"
+          type="radio"
+          name="sort"
+          value="DESC"
+          onChange={ handleChangeSort }
+        />
+        {' '}
+        Descendente
+      </label>
+
+      <button
+        data-testid="column-sort-button"
+        onClick={ handleClickOrder }
+      >
+        Ordenar
+
+      </button>
+
       {
         filteredValues.length > 0
         && <FiltersPerformed />
       }
+
     </>
   );
 }

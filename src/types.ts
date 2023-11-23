@@ -38,6 +38,13 @@ export type FilterContextType = {
   comparisons: string[],
   setFilteredValues: React.Dispatch<React.SetStateAction<FilteredValuesType[]>>,
   setColumns: React.Dispatch<React.SetStateAction<string[]>>,
+  columnsSort: string[],
+  handleChangeSort: (event: React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>) => void,
+  handleClickOrder: () => void,
+  updateColumn: OrderType,
+  clickOrder: boolean,
+  setClickOrder: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export type FilteredValuesType = {
@@ -45,4 +52,11 @@ export type FilteredValuesType = {
   columnFilter: string,
   comparisonFilter: string,
   valueFilter: string,
+};
+
+export type OrderType = {
+  order: {
+    column: string;
+    sort: string;
+  };
 };

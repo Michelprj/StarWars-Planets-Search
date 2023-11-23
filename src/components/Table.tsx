@@ -6,7 +6,11 @@ import FilterContext from '../context/Filter/FilterContext';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
-  const { values, filteredValues } = useContext(FilterContext);
+  const { values,
+    filteredValues,
+    updateColumn,
+    clickOrder,
+    setClickOrder } = useContext(FilterContext);
 
   useEffect(() => {
     const getApi = async () => {
@@ -20,6 +24,10 @@ function Table() {
     };
     getApi();
   }, []);
+
+  useEffect(() => {
+    setClickOrder(false);
+  }, [updateColumn.order.column]);
 
   const filterNames = (listPlanets: PlanetsType[]) => {
     return listPlanets.filter((allPlanets: PlanetsType) => (
@@ -56,9 +64,38 @@ function Table() {
     return listFiltered;
   };
 
+  const orderFilter = (planets: PlanetsType[]) => {
+    const { order: { column, sort } } = updateColumn;
+    if (clickOrder && sort === 'ASC') {
+      return planets
+        .sort((a, b) => {
+          if (a[column] === 'unknown') {
+            return 1;
+          } if (b[column] === 'unknown') {
+            return -1;
+          }
+          return a[column] - b[column];
+        });
+    }
+    if (clickOrder && sort === 'DESC') {
+      return planets
+        .sort((a, b) => {
+          if (a[column] === 'unknown') {
+            return 1;
+          } if (b[column] === 'unknown') {
+            return -1;
+          }
+          return b[column] - a[column];
+        });
+    }
+
+    return planets;
+  };
+
   const performsFilters = () => {
     const namesFiltered = filterNames(fetchPlanets);
-    return filterNumbers(filteredValues, namesFiltered);
+    const filteredNumber = filterNumbers(filteredValues, namesFiltered);
+    return orderFilter(filteredNumber);
   };
 
   return (
@@ -84,7 +121,7 @@ function Table() {
         {
           performsFilters().map((planet: PlanetsType) => (
             <tr key={ planet.url }>
-              <td>{planet.name}</td>
+              <td data-testid="planet-name">{planet.name}</td>
               <td>{planet.rotation_period}</td>
               <td>{planet.orbital_period}</td>
               <td>{planet.diameter}</td>

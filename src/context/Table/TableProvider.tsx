@@ -16,6 +16,7 @@ function TableProvider({ children }: TableProviderType) {
   const value = {
     fetchPlanets,
     getValues,
+    setFetchPlanets,
   };
 
   return (

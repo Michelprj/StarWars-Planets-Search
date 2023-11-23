@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FilterContext from './FilterContext';
-import { FilteredValuesType } from '../../types';
+import { FilteredValuesType, OrderType } from '../../types';
+import TableContext from '../Table/TableContext';
 
 type FilterProviderType = {
   children: React.ReactNode,
@@ -13,6 +14,15 @@ const INITIAL_STATE = {
   valueFilter: '0',
 };
 
+// Sort values
+const columnsSort = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
+const ValuesSort = {
+  order: { column: 'population', sort: 'ASC' },
+};
+// ----
+
 const valuesColumns = ['population', 'orbital_period',
   'diameter', 'rotation_period', 'surface_water'];
 
@@ -22,6 +32,8 @@ function FilterProvider({ children }: FilterProviderType) {
   const [values, setValues] = useState(INITIAL_STATE);
   const [filteredValues, setFilteredValues] = useState<FilteredValuesType[]>([]);
   const [columns, setColumns] = useState(valuesColumns);
+  const [updateColumn, setUpdateColumn] = useState(ValuesSort);
+  const [clickOrder, setClickOrder] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>) => {
@@ -43,6 +55,21 @@ function FilterProvider({ children }: FilterProviderType) {
     });
   };
 
+  const handleChangeSort = (event: React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>) => {
+    setUpdateColumn((prevState) => (
+      {
+        ...prevState,
+        order: { ...prevState.order, [event.target.name]: event.target.value },
+      }
+    ));
+  };
+
+  const handleClickOrder = () => {
+    setUpdateColumn(updateColumn);
+    setClickOrder((prevState) => !prevState);
+  };
+
   const value = {
     values,
     handleChange,
@@ -52,6 +79,13 @@ function FilterProvider({ children }: FilterProviderType) {
     comparisons,
     setFilteredValues,
     setColumns,
+    columnsSort,
+    handleChangeSort,
+    handleClickOrder,
+
+    updateColumn,
+    clickOrder,
+    setClickOrder,
   };
 
   return (
