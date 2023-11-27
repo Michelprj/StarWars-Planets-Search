@@ -63,10 +63,9 @@ export const LineWhite = styled.div`
   border-bottom: none;
   position: absolute;
   border-radius: 5px;
-  right: 0.9em;
-  top: 38.7em;
-  width: 60em;
-  padding: 20em 41.28em;
+  right: 1vw;
+  top: 45.4vw;
+  padding: 20% 41.28em;
 `;
 
 export const FilterInputs = styled.div`
