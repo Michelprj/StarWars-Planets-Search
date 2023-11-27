@@ -39,22 +39,14 @@ export const ContainerImgs = styled.div`
   display: flex;
   flex-direction: column;
   #circleOutside {
-    height: 90vh;
+    height: 89vh;
     position: sticky;
   }
   #circleInside{
     bottom: 29vh;
     height: 70vh;
-    left: 33vw;
+    left: 33.2vw;
     position: absolute;    
-  }
-  #lineWhite {
-    position: absolute;
-    top: 71vh;
-    bottom: 2vh;
-    left: 50%;
-    width: 1px;
-    background-color: white;
   }
 `;
 

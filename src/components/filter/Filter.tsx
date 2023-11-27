@@ -22,7 +22,6 @@ function Filter() {
 
   return (
     <Container>
-      <LineWhite />
       <ContainerLogo>
         <div id="nameStar">
           <img className="nameLogo" src="Vector.svg" alt="ST" id="ST" />
