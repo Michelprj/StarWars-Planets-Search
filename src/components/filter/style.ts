@@ -50,8 +50,8 @@ export const ContainerImgs = styled.div`
   }
   #lineWhite {
     position: absolute;
-    top: 71%;
-    bottom: 2%;
+    top: 28em;
+    bottom: 0.8em;
     left: 50%;
     width: 1px;
     margin-left: -0.9px;
