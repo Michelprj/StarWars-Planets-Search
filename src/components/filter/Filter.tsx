@@ -37,8 +37,8 @@ function Filter() {
       </ContainerLogo>
 
       <ContainerImgs>
-        <img src="public/Ellipse 1.svg" alt="circleOutside" id="circleOutside" />
-        <img src="public/Ellipse 2.svg" alt="circleInside" id="circleInside" />
+        <img src="Ellipse 1.svg" alt="circleOutside" id="circleOutside" />
+        <img src="Ellipse 2.svg" alt="circleInside" id="circleInside" />
         <div id="lineWhite" />
       </ContainerImgs>
 
