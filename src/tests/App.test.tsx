@@ -60,5 +60,24 @@ describe('Testa aplicação Starwars planets search TS.', () => {
     const tableUrl = screen.getByRole('columnheader', { name: /url/i });
     expect(tableUrl).toBeInTheDocument();
   });
+
+  // it('Testa se o FilterPerformed é renderizado corretamente.', async () => {
+  //   const {user} = renderTesting(<App />);
+
+  //   const selectFilter = screen.getByTestId('column-filter');
+  //   expect(selectFilter).toBeInTheDocument();
+    
+  //   const selectComparison = screen.getByTestId('comparison-filter');
+  //   expect(selectComparison).toBeInTheDocument();
+
+  //   const inputNumbers = screen.getByTestId('value-filter');
+  //   expect(inputNumbers).toBeInTheDocument();
+
+  //   const btnFilter = screen.getByRole('button', { name: /filtrar/i });
+  //   expect(btnFilter).toBeInTheDocument();
+
+  //   await user.selectOptions()
+
+  // })
 })
 

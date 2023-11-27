@@ -1,6 +1,8 @@
 import { useContext } from 'react';
-import FilterContext from '../context/Filter/FilterContext';
-import { FilteredValuesType } from '../types';
+import FilterContext from '../../context/Filter/FilterContext';
+import { FilteredValuesType } from '../../types';
+import { Container } from './style';
+import { Button } from '../filter/style';
 
 function FiltersPerformed() {
   const { filteredValues, setFilteredValues, setColumns } = useContext(FilterContext);
@@ -20,27 +22,29 @@ function FiltersPerformed() {
   };
 
   return (
-    <>
+    <Container>
       {
       filteredValues.map((filter, index) => (
         <div key={ index }>
           <p data-testid="filter">
             {`${filter.columnFilter} 
           ${filter.comparisonFilter} ${filter.valueFilter} `}
-            <button onClick={ () => handleClick(filter) }>X</button>
+            <button onClick={ () => handleClick(filter) }>
+              X
+            </button>
           </p>
         </div>
       ))
     }
 
-      <button
+      <Button
         data-testid="button-remove-filters"
         onClick={ removedAll }
       >
         Remover todas filtragens
 
-      </button>
-    </>
+      </Button>
+    </Container>
   );
 }
 

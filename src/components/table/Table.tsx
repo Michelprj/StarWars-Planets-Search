@@ -1,8 +1,9 @@
 import { useContext, useEffect } from 'react';
-import fetchApi from '../helpers/fetchApi';
-import TableContext from '../context/Table/TableContext';
-import { FilteredValuesType, PlanetsType, TableContextType } from '../types';
-import FilterContext from '../context/Filter/FilterContext';
+import fetchApi from '../../helpers/fetchApi';
+import TableContext from '../../context/Table/TableContext';
+import { FilteredValuesType, PlanetsType, TableContextType } from '../../types';
+import FilterContext from '../../context/Filter/FilterContext';
+import { LineWhite, TableContainer } from './style';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
@@ -65,7 +66,7 @@ function Table() {
   const orderAsc = (planets: PlanetsType[]) => {
     const { order: { column } } = updateColumn;
     return planets
-      .sort((a, b) => {
+      .sort((a: any, b: any) => {
         if (a[column] === 'unknown') {
           return 1;
         } if (b[column] === 'unknown') {
@@ -78,7 +79,7 @@ function Table() {
   const orderDesc = (planets: PlanetsType[]) => {
     const { order: { column } } = updateColumn;
     return planets
-      .sort((a, b) => {
+      .sort((a: any, b: any) => {
         if (a[column] === 'unknown') {
           return 1;
         } if (b[column] === 'unknown') {
@@ -106,26 +107,25 @@ function Table() {
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rotation Period</th>
-          <th>Orbital Period</th>
-          <th>Diameter</th>
-          <th>Climate</th>
-          <th>Gravity</th>
-          <th>Terrain</th>
-          <th>Surface Water</th>
-          <th>Population</th>
-          <th>Films</th>
-          <th>Created</th>
-          <th>Edited</th>
-          <th>URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
+    <>
+      <LineWhite />
+      <TableContainer>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface Water</th>
+            <th>Population</th>
+            <th style={ { padding: '1.5em 10em' } }>Films</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
           performsFilters().map((planet: PlanetsType) => (
             <tr key={ planet.url }>
               <td data-testid="planet-name">{planet.name}</td>
@@ -137,15 +137,19 @@ function Table() {
               <td>{planet.terrain}</td>
               <td>{planet.surface_water}</td>
               <td>{planet.population}</td>
-              <td>{planet.films}</td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>{planet.url}</td>
+              <td
+                style={ {
+                  wordBreak: 'break-all' } }
+              >
+                {planet.films}
+
+              </td>
             </tr>
           ))
         }
-      </tbody>
-    </table>
+        </tbody>
+      </TableContainer>
+    </>
   );
 }
 export default Table;

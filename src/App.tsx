@@ -1,7 +1,7 @@
-import './App.css';
-import Filter from './components/Filter';
-import Table from './components/Table';
+import Filter from './components/filter/Filter';
+import Table from './components/table/Table';
 import TotalProvider from './context/TotalProvider';
+import './App.css';
 
 function App() {
   return (
