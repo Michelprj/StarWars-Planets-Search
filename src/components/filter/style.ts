@@ -39,18 +39,18 @@ export const ContainerImgs = styled.div`
   display: flex;
   flex-direction: column;
   #circleOutside {
-    bottom: 40em;
-    height: 33em;
+    height: 90vh;
     position: sticky;
   }
   #circleInside{
-    bottom: 50em;
-    height: 28em;
-    position: sticky;    
+    bottom: 29vh;
+    height: 70vh;
+    left: 33vw;
+    position: absolute;    
   }
   #lineWhite {
     position: absolute;
-    top: 70.7vh;
+    top: 71vh;
     bottom: 2vh;
     left: 50%;
     width: 1px;
