@@ -3,7 +3,7 @@ import fetchApi from '../../helpers/fetchApi';
 import TableContext from '../../context/Table/TableContext';
 import { FilteredValuesType, PlanetsType, TableContextType } from '../../types';
 import FilterContext from '../../context/Filter/FilterContext';
-import { LineWhite, TableContainer } from './style';
+import { TableContainer } from './style';
 
 function Table() {
   const { getValues, fetchPlanets } = useContext<TableContextType>(TableContext);
@@ -108,46 +108,47 @@ function Table() {
 
   return (
     <>
-      <LineWhite />
       <TableContainer>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Rotation Period</th>
-            <th>Orbital Period</th>
-            <th>Diameter</th>
-            <th>Climate</th>
-            <th>Gravity</th>
-            <th>Terrain</th>
-            <th>Surface Water</th>
-            <th>Population</th>
-            <th style={ { padding: '1.5em 10em' } }>Films</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-          performsFilters().map((planet: PlanetsType) => (
-            <tr key={ planet.url }>
-              <td data-testid="planet-name">{planet.name}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.surface_water}</td>
-              <td>{planet.population}</td>
-              <td
-                style={ {
-                  wordBreak: 'break-all' } }
-              >
-                {planet.films}
-
-              </td>
+        <table>        
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rotation Period</th>
+              <th>Orbital Period</th>
+              <th>Diameter</th>
+              <th>Climate</th>
+              <th>Gravity</th>
+              <th>Terrain</th>
+              <th>Surface Water</th>
+              <th>Population</th>
+              <th style={ { padding: '1.5em 10em' } }>Films</th>
             </tr>
-          ))
-        }
-        </tbody>
+          </thead>
+          <tbody>
+            {
+            performsFilters().map((planet: PlanetsType) => (
+              <tr key={ planet.url }>
+                <td data-testid="planet-name">{planet.name}</td>
+                <td>{planet.rotation_period}</td>
+                <td>{planet.orbital_period}</td>
+                <td>{planet.diameter}</td>
+                <td>{planet.climate}</td>
+                <td>{planet.gravity}</td>
+                <td>{planet.terrain}</td>
+                <td>{planet.surface_water}</td>
+                <td>{planet.population}</td>
+                <td
+                  style={ {
+                    wordBreak: 'break-all' } }
+                >
+                  {planet.films}
+
+                </td>
+              </tr>
+            ))
+          }
+          </tbody>
+        </table>
       </TableContainer>
     </>
   );

@@ -8,9 +8,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {
-  background-image: url('fundo.jpeg');
-  background-size: cover;
-  background-position: center left;
+  background-color: #00110D;
   color: white;
   font-family: Epilogue;
 }
