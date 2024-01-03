@@ -30,4 +30,8 @@ export const TableContainer = styled.div`
     font-weight: 400;
     font-size: 1vw;
   }
+
+  @media (max-width: 480px) {
+    top: 30em;
+  }
 `;

@@ -21,6 +21,13 @@ export const ContainerLogo = styled.div`
     height: auto;
     width: 500px;
   }
+
+  @media (max-width: 480px) {
+    img {
+      height: auto;
+      width: 300px;
+    }
+  }
 `;
 
 
@@ -37,6 +44,11 @@ export const LineWhite = styled.div`
 
   @media (min-width: 481px) and (max-width: 768px) {
     padding: 62% 46vw;
+  }
+
+  @media (max-width: 480px) {
+    top: 260px;
+    padding: 75% 46vw;
   }
 `;
 
@@ -120,6 +132,37 @@ export const FilterInputs = styled.div`
       }
     }
   }
+
+  @media (max-width: 480px) {
+    top: 18em;
+
+    #searchName {
+      margin-bottom: 2em;
+      input {
+        width: 80vw;
+        padding: 0.5em 2em;
+      }
+      img {
+        position: absolute;
+        right: 7vw;
+        bottom: 4px;
+      }
+    }
+
+    .filters {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+
+      .container-filter .searchNumber {
+        padding: 0.2em;
+        width: 13vw;
+      }
+    }
+  }
 `;
 
 export const ContainerSelect = styled.div`
@@ -168,6 +211,15 @@ export const Select = styled.select`
     font-weight: 600;
     font-size: 11px;
     width: 15vw;
+    option {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    font-weight: 500;
+    font-size: 10px;
+    width: 20vw;
     option {
       font-size: 11px;
     }
@@ -226,6 +278,11 @@ export const RadioBtn = styled.input`
     width: 18px;
     height: 18px;
   }
+
+  @media (max-width: 480px) {
+    width: 14px;
+    height: 14px;
+  }
 `;
 
 export const LabelRadios = styled.label`
@@ -242,5 +299,9 @@ export const LabelRadios = styled.label`
 
   @media (min-width: 481px) and (max-width: 768px) {
     font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
   }
 `;
