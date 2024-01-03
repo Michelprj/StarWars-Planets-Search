@@ -8,7 +8,8 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {
-  background-color: #00110D;
+  background-image: url('/background1.jpg');
+  background-size: cover;
   color: white;
   font-family: Epilogue;
 }
