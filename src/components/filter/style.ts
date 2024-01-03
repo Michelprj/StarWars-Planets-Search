@@ -29,7 +29,15 @@ export const LineWhite = styled.div`
   position: absolute;
   border-radius: 5px;
   top: 435px;
-  padding: 60vw 46vw;
+  padding: 45% 46vw;
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    padding: 50% 46vw;
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    padding: 62% 46vw;
+  }
 `;
 
 export const FilterInputs = styled.div`
